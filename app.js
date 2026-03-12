@@ -43,9 +43,16 @@ const searchInput = document.getElementById('search-input');
 const totalCarsEl = document.getElementById('total-cars');
 const totalValueEl = document.getElementById('total-value');
 const modalTitle = document.getElementById('modal-title');
+const themeToggleBtn = document.getElementById('theme-toggle');
+const sunIcon = document.getElementById('sun-icon');
+const moonIcon = document.getElementById('moon-icon');
 
 // Initialize Listener - Real-time Sanpshot
 function init() {
+    // Theme setup
+    const savedTheme = localStorage.getItem('ecoCarTheme') || 'dark';
+    applyTheme(savedTheme);
+
     const q = query(carsCol, orderBy('dateAdded', 'desc'));
     onSnapshot(q, (snapshot) => {
         cars = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -53,6 +60,26 @@ function init() {
         updateStats();
     });
 }
+
+function applyTheme(theme) {
+    if (theme === 'light') {
+        document.body.classList.remove('dark-theme');
+        document.body.classList.add('light-theme');
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+    } else {
+        document.body.classList.remove('light-theme');
+        document.body.classList.add('dark-theme');
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+    }
+    localStorage.setItem('ecoCarTheme', theme);
+}
+
+themeToggleBtn.addEventListener('click', () => {
+    const currentTheme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
+    applyTheme(currentTheme === 'light' ? 'dark' : 'light');
+});
 
 // Render UI
 function renderCars(filter = '') {

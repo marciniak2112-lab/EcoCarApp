@@ -1,15 +1,29 @@
 :root {
-    --primary-green: #39FF14; /* Neon Green */
+    --primary-green: #39FF14;
     --vibrant-green: #00FF41;
-    --dark-bg: #0a0a0c;
+    --font-family: 'Outfit', sans-serif;
+    --radius: 16px;
+    --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+.dark-theme {
+    --bg-color: #0a0a0c;
     --card-bg: rgba(255, 255, 255, 0.03);
     --glass-bg: rgba(10, 10, 12, 0.7);
     --text-main: #ffffff;
     --text-muted: #a0a0a0;
     --border-color: rgba(57, 255, 20, 0.2);
-    --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
-    --radius: 16px;
-    --font-family: 'Outfit', sans-serif;
+    --input-bg: rgba(255, 255, 255, 0.05);
+}
+
+.light-theme {
+    --bg-color: #f0f2f5;
+    --card-bg: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --text-main: #1a1a1a;
+    --text-muted: #666666;
+    --border-color: rgba(57, 255, 20, 0.4);
+    --input-bg: #ffffff;
 }
 
 * {
@@ -19,12 +33,13 @@
 }
 
 body {
-    background-color: var(--dark-bg);
+    background-color: var(--bg-color);
     color: var(--text-main);
     font-family: var(--font-family);
     min-height: 100vh;
     padding: 2rem;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Background elements for depth */
@@ -35,7 +50,7 @@ body::before {
     left: -10%;
     width: 40%;
     height: 40%;
-    background: radial-gradient(circle, rgba(57, 255, 20, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(57, 255, 20, 0.1) 0%, transparent 70%);
     z-index: -1;
     filter: blur(100px);
 }
@@ -55,6 +70,13 @@ header {
     backdrop-filter: blur(10px);
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
 }
 
 .logo {
@@ -63,9 +85,15 @@ header {
     letter-spacing: -1px;
 }
 
-.logo .eco { color: var(--text-main); }
-.logo .car { color: var(--primary-green); }
-.logo .pro { 
+.logo .eco {
+    color: var(--text-main);
+}
+
+.logo .car {
+    color: var(--primary-green);
+}
+
+.logo .pro {
     background: var(--primary-green);
     color: #000;
     padding: 0.1rem 0.4rem;
@@ -95,6 +123,24 @@ header {
     box-shadow: 0 0 30px rgba(57, 255, 20, 0.4);
 }
 
+.btn-secondary {
+    background: var(--input-bg);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 0.8rem;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--primary-green);
+    color: #000;
+}
+
 /* Stats */
 .stats-overview {
     display: grid;
@@ -110,6 +156,7 @@ header {
     border-radius: var(--radius);
     display: flex;
     flex-direction: column;
+    box-shadow: var(--shadow);
 }
 
 .stat-card .label {
@@ -131,11 +178,11 @@ header {
 
 .search-filter input {
     width: 100%;
-    background: var(--card-bg);
+    background: var(--input-bg);
     border: 1px solid var(--border-color);
     padding: 1rem 1.5rem;
     border-radius: 12px;
-    color: #fff;
+    color: var(--text-main);
     font-size: 1rem;
 }
 
@@ -160,6 +207,7 @@ header {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    box-shadow: var(--shadow);
 }
 
 .car-card:hover {
@@ -180,13 +228,18 @@ header {
     font-size: 0.9rem;
 }
 
-.car-info-row .label { color: var(--text-muted); }
-.car-info-row .val { font-weight: 600; }
+.car-info-row .label {
+    color: var(--text-muted);
+}
+
+.car-info-row .val {
+    font-weight: 600;
+}
 
 .car-history-preview {
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid var(--border-color);
 }
 
 .car-history-preview p {
@@ -202,9 +255,9 @@ header {
 }
 
 .btn-icon {
-    background: rgba(255,255,255,0.05);
-    border: none;
-    color: #fff;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
     padding: 8px;
     border-radius: 8px;
     cursor: pointer;
@@ -224,29 +277,38 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(5px);
     z-index: 1000;
     justify-content: center;
     align-items: center;
 }
 
-.modal.active { display: flex; }
+.modal.active {
+    display: flex;
+}
 
 .modal-content {
     width: 90%;
     max-width: 500px;
-    background: var(--dark-bg);
+    background: var(--bg-color);
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
     padding: 2rem;
-    box-shadow: var(--shadow);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
     animation: slideUp 0.3s ease-out;
 }
 
 @keyframes slideUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .modal-header {
@@ -275,17 +337,19 @@ header {
     color: var(--text-muted);
 }
 
-.form-group input, .form-group textarea {
+.form-group input,
+.form-group textarea {
     width: 100%;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
     padding: 0.8rem;
     border-radius: 8px;
-    color: #fff;
+    color: var(--text-main);
     font-family: inherit;
 }
 
-.form-group input:focus, .form-group textarea:focus {
+.form-group input:focus,
+.form-group textarea:focus {
     outline: none;
     border-color: var(--primary-green);
 }
@@ -308,7 +372,10 @@ header {
     transition: 0.3s;
 }
 
-.btn-submit:hover { opacity: 0.9; }
+.btn-submit:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
 
 /* Empty state */
 .empty-state {
@@ -321,6 +388,20 @@ header {
 }
 
 @media (max-width: 600px) {
-    .form-grid { grid-template-columns: 1fr; }
-    body { padding: 1rem; }
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    body {
+        padding: 1rem;
+    }
+
+    .header-actions {
+        gap: 8px;
+    }
+
+    .btn-primary {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
 }
