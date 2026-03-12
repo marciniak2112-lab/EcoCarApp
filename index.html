@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoCarPro | Zarządzanie Samochodami</title>
+    <meta name="description"
+        content="EcoCarPro - Profesjonalny system zarządzania flotą i serwisem samochodowym. Monitoruj ceny, właścicieli i historię napraw w eleganckim wydaniu.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dark-theme">
+    <div id="app">
+        <header>
+            <div class="logo">
+                <span class="eco">Eco</span><span class="car">Car</span><span class="pro">Pro</span>
+            </div>
+            <button id="add-car-btn" class="btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Dodaj Auto
+            </button>
+        </header>
+
+        <main>
+            <section class="stats-overview">
+                <div class="stat-card">
+                    <span class="label">Pojazdy</span>
+                    <span id="total-cars" class="value">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Łączna Wartość</span>
+                    <span id="total-value" class="value">0 PLN</span>
+                </div>
+            </section>
+
+            <section class="search-filter">
+                <input type="text" id="search-input" placeholder="Szukaj modelu, marki lub właściciela...">
+            </section>
+
+            <section id="cars-grid" class="cars-grid">
+                <!-- Car cards will be injected here -->
+                <div class="empty-state">
+                    <p>Brak samochodów w systemie. Kliknij "Dodaj Auto", aby zacząć.</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Modal for Adding/Editing Car -->
+        <div id="car-modal" class="modal">
+            <div class="modal-content glass">
+                <div class="modal-header">
+                    <h2 id="modal-title">Nowy Samochód</h2>
+                    <button id="close-modal" class="btn-close">&times;</button>
+                </div>
+                <form id="car-form">
+                    <input type="hidden" id="car-id">
+                    <div class="form-group">
+                        <label for="car-brand">Marka i Model</label>
+                        <input type="text" id="car-brand" placeholder="np. Tesla Model 3" required>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="car-price">Cena (PLN)</label>
+                            <input type="number" id="car-price" placeholder="0.00" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="car-owner-phone">Telefon Właściciela</label>
+                            <input type="tel" id="car-owner-phone" placeholder="123 456 789" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="car-history">Co zostało zrobione?</label>
+                        <textarea id="car-history" placeholder="Opisz naprawy, serwis, modyfikacje..."
+                            rows="4"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit">Zapisz Auto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
